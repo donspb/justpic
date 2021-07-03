@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">JustPic</string>
+
+    <string name="favourite">Favourite</string>
+    <string name="search">Search</string>
+
+    <string name="bottom_nav_item1">Пункт меню 1</string>
+    <string name="bottom_nav_item2">Пункт меню 2</string>
+</resources>

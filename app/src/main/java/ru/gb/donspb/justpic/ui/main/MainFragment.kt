@@ -20,6 +20,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.gb.donspb.justpic.MainActivity
 import ru.gb.donspb.justpic.R
 import ru.gb.donspb.justpic.model.PictureOfTheDayData
+import java.text.SimpleDateFormat
+import java.util.*
+
+private const val TWODAYS = 2
+private const val ONEDAY = 1
 
 class MainFragment : Fragment() {
 
@@ -85,7 +90,28 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setBottomAppBar(view)
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
-        viewModel.getData().observe(this@MainFragment, Observer<PictureOfTheDayData>
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        var date = dateFormat.format(Date())
+        var calendar = Calendar.getInstance()
+        view.findViewById<Chip>(R.id.chip_2days).setOnClickListener {
+            calendar.add(Calendar.DATE, -TWODAYS)
+            date = dateFormat.format(calendar.time)
+            loadVM(date)
+        }
+        view.findViewById<Chip>(R.id.chip_yest).setOnClickListener {
+            calendar.add(Calendar.DATE, -ONEDAY)
+            date = dateFormat.format(calendar.time)
+            loadVM(date)
+        }
+        view.findViewById<Chip>(R.id.chip_today).setOnClickListener {
+            date = dateFormat.format(Date())
+            loadVM(date)
+        }
+        loadVM(date)
+    }
+
+    private fun loadVM(date: String) {
+        viewModel.getData(date).observe(this@MainFragment, Observer<PictureOfTheDayData>
         { renderData(it) })
     }
 
@@ -104,7 +130,10 @@ class MainFragment : Fragment() {
                     val chipHD = view?.findViewById<Chip>(R.id.chip_hd_filter)
 
                     chipHD?.visibility = Chip.VISIBLE
-                    chipHD?.setOnCheckedChangeListener { chipHD, isChecked -> pictureShower(urlHD)}
+                    chipHD?.setOnCheckedChangeListener { chipHD, isChecked ->
+                        if (isChecked) pictureShower(urlHD)
+                        else pictureShower(url)
+                    }
                     pictureShower(url)
                     view?.findViewById<TextView>(R.id.bottom_sheet_header)?.text = title
                     view?.findViewById<TextView>(R.id.bottom_sheet_description)?.text = description

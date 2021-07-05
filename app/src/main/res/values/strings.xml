@@ -6,4 +6,9 @@
 
     <string name="bottom_nav_item1">Пункт меню 1</string>
     <string name="bottom_nav_item2">Пункт меню 2</string>
+
+    <string name="chip_2days">Two days ago</string>
+    <string name="chip_yest">Yesterday</string>
+    <string name="chip_today">Today</string>
+    <string name="chip_hd">HD</string>
 </resources>

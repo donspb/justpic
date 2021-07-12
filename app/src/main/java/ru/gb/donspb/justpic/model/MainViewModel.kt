@@ -1,4 +1,4 @@
-package ru.gb.donspb.justpic.ui.main
+package ru.gb.donspb.justpic.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,8 +7,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.gb.donspb.justpic.BuildConfig
-import ru.gb.donspb.justpic.model.PODServerResponseData
-import ru.gb.donspb.justpic.model.PictureOfTheDayData
 import ru.gb.donspb.justpic.repo.PODRetrofitImpl
 
 class MainViewModel (

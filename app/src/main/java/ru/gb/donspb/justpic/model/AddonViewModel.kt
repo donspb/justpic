@@ -21,15 +21,15 @@ class AddonViewModel (
     private fun sendServerRequest() {
         liveDataToObserve.value = EpicData.Loading(null)
         retrofitImpl.getEpicRetrofitImpl().getEpicArray().enqueue(
-            object : Callback<EPICServerListResponse> {
+            object : Callback<List<EPICServerResponse>> {
 
-                override fun onFailure(call: Call<EPICServerListResponse>, t: Throwable) {
+                override fun onFailure(call: Call<List<EPICServerResponse>>, t: Throwable) {
                     liveDataToObserve.value = EpicData.Error(t)
                 }
 
                 override fun onResponse(
-                    call: Call<EPICServerListResponse>,
-                    response: Response<EPICServerListResponse>
+                    call: Call<List<EPICServerResponse>>,
+                    response: Response<List<EPICServerResponse>>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         liveDataToObserve.value = EpicData.Success(response.body()!!)

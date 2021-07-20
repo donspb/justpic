@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
@@ -20,11 +21,13 @@ import java.util.*
 
 class EarthFragment : Fragment() {
 
-    private val adapter = EpicRecycler(object : OnItemViewClickListener {
-        override fun onItemViewClick(data: EPICServerResponse) {
-
+    private val adapter = EpicRecycler(
+    object: EpicRecycler.OnListItemClickListener {
+        override fun onItemClick(dataItem: EPICServerResponse) {
+            Toast.makeText(requireContext(), dataItem.date, Toast.LENGTH_SHORT).show()
         }
-    })
+    }
+    )
 
     private val viewModel by lazy {
         ViewModelProvider(this).get(AddonViewModel::class.java)
@@ -39,13 +42,14 @@ class EarthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.findViewById<RecyclerView>(R.id.recycler_earth).adapter = adapter
         viewModel.getData().observe(this@EarthFragment, Observer<EpicData> { renderData(it) })
     }
 
     private fun renderData(data: EpicData) {
         when (data) {
             is EpicData.Success -> {
-                adapter.setData(data.serverResponseDataList.resultsList)
+                adapter.setData(data.serverResponseDataList)
             }
             is EpicData.Loading -> {
                 // TODO: showLoading()
@@ -54,9 +58,5 @@ class EarthFragment : Fragment() {
                 // TODO: ShowError()
             }
         }
-    }
-
-    interface OnItemViewClickListener {
-        fun onItemViewClick(data: EPICServerResponse)
     }
 }

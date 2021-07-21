@@ -1,6 +1,5 @@
-package ru.gb.donspb.justpic.ui.addon
+package ru.gb.donspb.justpic.ui.rv
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

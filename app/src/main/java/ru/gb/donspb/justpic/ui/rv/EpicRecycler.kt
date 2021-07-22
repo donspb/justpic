@@ -8,30 +8,50 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.gb.donspb.justpic.R
 import ru.gb.donspb.justpic.model.EPICServerResponse
 
-class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener) : RecyclerView.Adapter<EpicRecycler.ViewHolder>() {
+class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener) : RecyclerView.Adapter<BaseViewHolder>() {
 
-    private var epicDataSet: List<EPICServerResponse> = listOf()
+    private var epicDataSet: List<EPICServerResponse> = mutableListOf(
+        EPICServerResponse(null,null,null, "Header"))
 
     fun setData(data: List<EPICServerResponse>?) {
         if (data != null) {
+            //epicDataSet.plus(data)
             epicDataSet = data
             notifyDataSetChanged()
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(
-            R.layout.recycler_epic_card, parent, false) as View)
+    fun appendItem() {
+        epicDataSet = generateItem()
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+
+        val inflater = LayoutInflater.from(parent.context)
+
+        if (viewType == TYPE_CARD)
+            return ViewHolder(inflater.inflate(
+                R.layout.recycler_epic_card, parent, false) as View)
+        else
+            return HeaderViewHolder(inflater.inflate(
+                R.layout.recycler_epic_header, parent, false) as View)
+    }
+
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bind(epicDataSet[position])
     }
 
     override fun getItemCount() = epicDataSet.size
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(epicItem: EPICServerResponse) {
+    override fun getItemViewType(position: Int): Int {
+        return when {
+            position == 0 -> TYPE_HEADER
+            else -> TYPE_CARD
+        }
+    }
+
+    inner class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
+        override fun bind(epicItem: EPICServerResponse) {
             itemView.apply {
                 findViewById<TextView>(R.id.recycler_card_text).text = epicItem.caption
                 findViewById<TextView>(R.id.recycler_card_date).text = epicItem.date
@@ -39,7 +59,19 @@ class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener)
         }
     }
 
+    inner class HeaderViewHolder(itemView: View) : BaseViewHolder(itemView) {
+
+        override fun bind(dataItem: EPICServerResponse) {
+            itemView.setOnClickListener {  }
+        }
+    }
+
     interface OnListItemClickListener {
         fun onItemClick(dataItem: EPICServerResponse)
+    }
+
+    companion object {
+        private const val TYPE_HEADER = 0
+        private const val TYPE_CARD = 1
     }
 }

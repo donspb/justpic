@@ -1,10 +1,5 @@
 package ru.gb.donspb.justpic.ui.rv
 
-
-
-
-
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.gb.donspb.justpic.R
 import ru.gb.donspb.justpic.model.AddonViewModel
 import ru.gb.donspb.justpic.model.EPICServerResponse
@@ -45,6 +41,10 @@ class RecyclerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<RecyclerView>(R.id.recycler_earth).adapter = adapter
         view.findViewById<RecyclerView>(R.id.recycler_earth).layoutManager = LinearLayoutManager(context)
+        view.findViewById<FloatingActionButton>(R.id.rv_fragment_fab).setOnClickListener {
+            adapter.appendItem()
+        }
+
         viewModel.getData().observe(this@RecyclerFragment, Observer<EpicData> { renderData(it) })
     }
 

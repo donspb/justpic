@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/design_default_color_primary">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/header_rv_epic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rv_header_epic"
+        android:textColor="@color/design_default_color_on_primary"
+        android:textSize="@dimen/rv_header_textsize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/recycler_margin"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rv_line_height"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/header_rv_epic"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

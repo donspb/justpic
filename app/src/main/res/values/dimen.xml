@@ -11,4 +11,8 @@
 
     <dimen name="zero">0dp</dimen>
     <dimen name="recycler_margin">10dp</dimen>
+
+    <dimen name="rv_line_height">1px</dimen>
+    <dimen name="rv_header_textsize">35sp</dimen>
+    <dimen name="rv_fab_margin">15dp</dimen>
 </resources>

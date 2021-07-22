@@ -5,16 +5,20 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/recycler_card_text"
+        android:id="@+id/recycler_card_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/recycler_card_date"
+        android:id="@+id/recycler_card_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rv_line_height"
+        android:background="@color/black" />
 
 </LinearLayout>

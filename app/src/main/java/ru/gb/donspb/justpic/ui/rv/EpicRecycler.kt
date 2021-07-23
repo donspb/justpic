@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import ru.gb.donspb.justpic.R
@@ -17,7 +18,8 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener) : RecyclerView.Adapter<BaseViewHolder>() {
+class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener)
+    : RecyclerView.Adapter<BaseViewHolder>() {
 
     private var epicDataSet: MutableList<Pair<EPICServerResponse, Boolean>> = mutableListOf(
         Pair(EPICServerResponse(null,null,null, "Header"), false))
@@ -104,8 +106,6 @@ class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener)
         }
     }
 
-
-
     inner class HeaderViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
         override fun bind(dataItem: Pair<EPICServerResponse, Boolean>) {
@@ -134,4 +134,37 @@ interface ItemTouchHelperViewHolder {
     fun onItemSelected()
 
     fun onItemClear()
+}
+
+class ItemTouchHelperCallback(private val adapter: EpicRecycler) : ItemTouchHelper.Callback() {
+    override fun getMovementFlags(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder
+    ): Int {
+        val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+        val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
+
+        return makeMovementFlags(dragFlags, swipeFlags)
+    }
+
+    override fun onMove(
+        recyclerView: RecyclerView,
+        source: RecyclerView.ViewHolder,
+        target: RecyclerView.ViewHolder
+    ): Boolean {
+        adapter.onItemMove(source.adapterPosition, target.absoluteAdapterPosition)
+    }
+
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+        adapter.onItemDismiss(viewHolder.absoluteAdapterPosition)
+    }
+
+    override fun isLongPressDragEnabled(): Boolean {
+        return true
+    }
+
+    override fun isItemViewSwipeEnabled(): Boolean {
+        return true
+    }
+
 }

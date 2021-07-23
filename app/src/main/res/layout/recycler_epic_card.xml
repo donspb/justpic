@@ -16,6 +16,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:id="@+id/rv_card_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/rv_line_height"

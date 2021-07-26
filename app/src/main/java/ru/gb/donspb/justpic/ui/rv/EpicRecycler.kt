@@ -1,5 +1,6 @@
 package ru.gb.donspb.justpic.ui.rv
 
+import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener)
-    : RecyclerView.Adapter<BaseViewHolder>() {
+    : RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter {
 
     private var epicDataSet: MutableList<Pair<EPICServerResponse, Boolean>> = mutableListOf(
         Pair(EPICServerResponse(null,null,null, "Header"), false))
@@ -65,7 +66,7 @@ class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener)
         }
     }
 
-    inner class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : BaseViewHolder(itemView), ItemTouchHelperViewHolder {
         @RequiresApi(Build.VERSION_CODES.O)
         override fun bind(epicItem: Pair<EPICServerResponse, Boolean>) {
             itemView.apply {
@@ -104,6 +105,14 @@ class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener)
             }
             notifyItemChanged(layoutPosition)
         }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
+        }
     }
 
     inner class HeaderViewHolder(itemView: View) : BaseViewHolder(itemView) {
@@ -120,6 +129,20 @@ class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener)
     companion object {
         private const val TYPE_HEADER = 0
         private const val TYPE_CARD = 1
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        epicDataSet.removeAt(fromPosition).apply {
+            epicDataSet.add(
+                if (toPosition > fromPosition) toPosition - 1 else toPosition, this
+            )
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        epicDataSet.removeAt(position)
+        notifyItemRemoved(position)
     }
 }
 
@@ -152,11 +175,26 @@ class ItemTouchHelperCallback(private val adapter: EpicRecycler) : ItemTouchHelp
         source: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        adapter.onItemMove(source.adapterPosition, target.absoluteAdapterPosition)
+        adapter.onItemMove(source.adapterPosition, target.adapterPosition)
+        return true
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        adapter.onItemDismiss(viewHolder.absoluteAdapterPosition)
+        adapter.onItemDismiss(viewHolder.adapterPosition)
+    }
+
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+            val itemViewHolder = viewHolder as ItemTouchHelperViewHolder
+            itemViewHolder.onItemSelected()
+        }
+        super.onSelectedChanged(viewHolder, actionState)
+    }
+
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+        super.clearView(recyclerView, viewHolder)
+        val itemViewHolder = viewHolder as ItemTouchHelperViewHolder
+        itemViewHolder.onItemClear()
     }
 
     override fun isLongPressDragEnabled(): Boolean {

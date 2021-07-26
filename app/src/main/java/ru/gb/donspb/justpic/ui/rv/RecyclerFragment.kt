@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -48,6 +49,7 @@ class RecyclerFragment : Fragment() {
         view.findViewById<FloatingActionButton>(R.id.rv_fragment_fab).setOnClickListener {
             adapter.appendItem()
         }
+        ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(recycler)
 
         viewModel.getData().observe(this@RecyclerFragment, Observer<EpicData> { renderData(it) })
     }

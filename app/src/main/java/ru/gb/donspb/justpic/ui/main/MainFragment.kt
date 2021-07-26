@@ -1,5 +1,6 @@
 package ru.gb.donspb.justpic.ui.main
 
+import android.graphics.Typeface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
@@ -49,34 +50,13 @@ class MainFragment : Fragment() {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
                 }
             }
-//            R.id.navigation_set_dark -> {
-//                isChecked = !item.isChecked()
-//                item.setChecked(isChecked)
-//            }
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun setBottomAppBar(view: View) {
-//        val bottomBar = view.findViewById<BottomAppBar>(R.id.bottom_app_bar)
-//        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
+
         val context = activity as MainActivity
-//        if (isMain) {
-//            isMain = false
-//            bottomBar.navigationIcon = null
-//            bottomBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-//            fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back_arrow))
-//            bottomBar.replaceMenu(R.menu.alt_menu)
-//        } else {
-//            isMain = true
-//            bottomBar.navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_hamburger_icon)
-//            bottomBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-//            fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus_sign))
-//            bottomBar.replaceMenu(R.menu.main_menu)
-//        }
-
-
-
         context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
         setHasOptionsMenu(true)
     }
@@ -140,6 +120,9 @@ class MainFragment : Fragment() {
                     }
                     pictureShower(url)
                     view?.findViewById<TextView>(R.id.bottom_sheet_header)?.text = title
+                    view?.findViewById<TextView>(R.id.bottom_sheet_header)?.typeface = Typeface.createFromAsset(
+                        activity?.assets, "Zhizn.otf"
+                    )
                     view?.findViewById<TextView>(R.id.bottom_sheet_description)?.text = description
                 }
             }

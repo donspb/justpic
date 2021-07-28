@@ -2,6 +2,10 @@ package ru.gb.donspb.justpic.ui.rv
 
 import android.graphics.Color
 import android.os.Build
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,14 +83,18 @@ class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener)
                 }
                 else shortDate = ""
 
-//                val parsedDate = LocalDateTime.parse(epicItem.first.date,
-//                    DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"))
                 val url = "https://epic.gsfc.nasa.gov/archive/natural/" +
                         shortDate.replace('-','/') + "/png/${epicItem.first.url}.png"
                 datefield.setOnClickListener {
                     toggleImage()
                 }
-                datefield.text = epicItem.first.date
+
+                val spanDateText = SpannableString(epicItem.first.date)
+                spanDateText.setSpan(ForegroundColorSpan(Color.GRAY), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spanDateText.setSpan(ForegroundColorSpan(Color.CYAN), 5, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spanDateText.setSpan(ForegroundColorSpan(Color.GREEN), 8, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spanDateText.setSpan(ForegroundColorSpan(Color.MAGENTA), 11, 19, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                datefield.text = spanDateText
                 findViewById<TextView>(R.id.recycler_card_text).text = epicItem.first.caption
 
                 imagefield.load(url) {

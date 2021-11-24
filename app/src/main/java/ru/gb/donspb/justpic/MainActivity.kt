@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        setTheme(R.style.Theme_JustPic)
+
         val shredPrefs = getPreferences(Context.MODE_PRIVATE) ?: return
         val isDark = shredPrefs.getBoolean(THEME_TAG, false)
         if (isDark) {

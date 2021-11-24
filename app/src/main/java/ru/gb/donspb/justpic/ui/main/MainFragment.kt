@@ -3,22 +3,16 @@ package ru.gb.donspb.justpic.ui.main
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
+import android.widget.*
 import androidx.fragment.app.Fragment
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import coil.api.load
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.bottomappbar.BottomAppBarTopEdgeTreatment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.gb.donspb.justpic.MainActivity
 import ru.gb.donspb.justpic.R
+import ru.gb.donspb.justpic.model.MainViewModel
 import ru.gb.donspb.justpic.model.PictureOfTheDayData
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,9 +25,11 @@ class MainFragment : Fragment() {
     companion object {
         fun newInstance() = MainFragment()
         private var isMain = true
+        private var isChecked = false
     }
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+
 
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
@@ -53,6 +49,10 @@ class MainFragment : Fragment() {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
                 }
             }
+//            R.id.navigation_set_dark -> {
+//                isChecked = !item.isChecked()
+//                item.setChecked(isChecked)
+//            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -90,15 +90,19 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setBottomAppBar(view)
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+
+
+
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         var date = dateFormat.format(Date())
-        var calendar = Calendar.getInstance()
         view.findViewById<Chip>(R.id.chip_2days).setOnClickListener {
+            val calendar = Calendar.getInstance()
             calendar.add(Calendar.DATE, -TWODAYS)
             date = dateFormat.format(calendar.time)
             loadVM(date)
         }
         view.findViewById<Chip>(R.id.chip_yest).setOnClickListener {
+            val calendar = Calendar.getInstance()
             calendar.add(Calendar.DATE, -ONEDAY)
             date = dateFormat.format(calendar.time)
             loadVM(date)

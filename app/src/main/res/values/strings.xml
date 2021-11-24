@@ -4,11 +4,14 @@
     <string name="favourite">Favourite</string>
     <string name="search">Search</string>
 
-    <string name="bottom_nav_item1">Пункт меню 1</string>
-    <string name="bottom_nav_item2">Пункт меню 2</string>
+    <string name="bottom_nav_item1">First screen</string>
+    <string name="bottom_nav_item2">Second screen</string>
 
     <string name="chip_2days">Two days ago</string>
     <string name="chip_yest">Yesterday</string>
     <string name="chip_today">Today</string>
     <string name="chip_hd">HD</string>
+
+    <string name="navigation_set_dark">Dark Theme</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

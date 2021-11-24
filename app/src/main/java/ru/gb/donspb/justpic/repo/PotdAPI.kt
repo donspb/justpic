@@ -13,4 +13,6 @@ interface PotdAPI {
         @Query("api_key") apiKey: String,
         @Query("date") date: String
     ) : Call<PODServerResponseData>
+
+
 }

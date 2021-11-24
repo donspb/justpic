@@ -5,7 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.gb.donspb.justpic.model.EPICServerResponse
 import ru.gb.donspb.justpic.model.PODServerResponseData
-import java.util.*
 
 interface PotdAPI {
     @GET("planetary/apod")
@@ -17,5 +16,5 @@ interface PotdAPI {
 
 interface EpicAPI {
     @GET("api/natural")
-    fun getEpicArray() : Call<EPICServerResponse>
+    fun getEpicArray() : Call<List<EPICServerResponse>>
 }

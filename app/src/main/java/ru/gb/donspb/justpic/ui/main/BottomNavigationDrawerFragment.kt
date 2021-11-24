@@ -17,6 +17,7 @@ import com.google.android.material.navigation.NavigationView
 import ru.gb.donspb.justpic.MainActivity
 import ru.gb.donspb.justpic.R
 import ru.gb.donspb.justpic.ui.addon.AddonActivity
+import ru.gb.donspb.justpic.ui.rv.RecyclerFragment
 
 private const val THEME_TAG = "ISDARK"
 
@@ -51,8 +52,14 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         navigationView.setNavigationItemSelectedListener {
             menuItem -> when(menuItem.itemId) {
                 R.id.navigation_one -> startActivity(Intent(context, AddonActivity::class.java))
-                R.id.navigation_two -> Toast.makeText(context,"temp", Toast.LENGTH_SHORT)
+                R.id.navigation_two -> requireActivity().supportFragmentManager.apply {
+                    beginTransaction()
+                        .replace(R.id.container, RecyclerFragment.newInstance())
+                        .addToBackStack("")
+                        .commit()
+                }
             }
+            dismiss()
             true
         }
     }

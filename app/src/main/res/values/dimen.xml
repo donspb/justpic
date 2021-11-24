@@ -8,4 +8,7 @@
     <dimen name="bottom_sheet_padding">10dp</dimen>
 
     <dimen name="bottom_nav_menu_margin">8dp</dimen>
+
+    <dimen name="zero">0dp</dimen>
+    <dimen name="recycler_margin">10dp</dimen>
 </resources>

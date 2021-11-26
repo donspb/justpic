@@ -24,8 +24,8 @@ class MainFragment : Fragment() {
 
     companion object {
         fun newInstance() = MainFragment()
-        private var isMain = true
-        private var isChecked = false
+//        private var isMain = true
+//        private var isChecked = false
     }
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
@@ -115,7 +115,7 @@ class MainFragment : Fragment() {
     }
 
     private fun loadVM(date: String) {
-        viewModel.getData(date).observe(this@MainFragment, Observer<PictureOfTheDayData>
+        viewModel.getData(date).observe(viewLifecycleOwner, Observer<PictureOfTheDayData>
         { renderData(it) })
     }
 

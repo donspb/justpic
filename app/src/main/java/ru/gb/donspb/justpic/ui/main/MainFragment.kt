@@ -6,7 +6,6 @@ import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.Observer
 import coil.api.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
@@ -24,8 +23,6 @@ class MainFragment : Fragment() {
 
     companion object {
         fun newInstance() = MainFragment()
-//        private var isMain = true
-//        private var isChecked = false
     }
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
@@ -49,31 +46,12 @@ class MainFragment : Fragment() {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
                 }
             }
-//            R.id.navigation_set_dark -> {
-//                isChecked = !item.isChecked()
-//                item.setChecked(isChecked)
-//            }
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun setBottomAppBar(view: View) {
-//        val bottomBar = view.findViewById<BottomAppBar>(R.id.bottom_app_bar)
-//        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
         val context = activity as MainActivity
-//        if (isMain) {
-//            isMain = false
-//            bottomBar.navigationIcon = null
-//            bottomBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-//            fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back_arrow))
-//            bottomBar.replaceMenu(R.menu.alt_menu)
-//        } else {
-//            isMain = true
-//            bottomBar.navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_hamburger_icon)
-//            bottomBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-//            fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus_sign))
-//            bottomBar.replaceMenu(R.menu.main_menu)
-//        }
 
 
 
@@ -115,8 +93,7 @@ class MainFragment : Fragment() {
     }
 
     private fun loadVM(date: String) {
-        viewModel.getData(date).observe(viewLifecycleOwner, Observer<PictureOfTheDayData>
-        { renderData(it) })
+        viewModel.getData(date).observe(viewLifecycleOwner, { renderData(it) })
     }
 
     private fun renderData(data: PictureOfTheDayData) {
@@ -134,7 +111,7 @@ class MainFragment : Fragment() {
                     val chipHD = view?.findViewById<Chip>(R.id.chip_hd_filter)
 
                     chipHD?.visibility = Chip.VISIBLE
-                    chipHD?.setOnCheckedChangeListener { chipHD, isChecked ->
+                    chipHD?.setOnCheckedChangeListener { _, isChecked ->
                         if (isChecked) pictureShower(urlHD)
                         else pictureShower(url)
                     }

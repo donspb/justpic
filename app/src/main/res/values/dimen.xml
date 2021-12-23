@@ -15,4 +15,6 @@
     <dimen name="rv_line_height">1px</dimen>
     <dimen name="rv_header_textsize">35sp</dimen>
     <dimen name="rv_fab_margin">15dp</dimen>
+
+    <dimen name="mars_pic_size">450dp</dimen>
 </resources>

@@ -8,12 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.gb.donspb.justpic.R
 import ru.gb.donspb.justpic.model.AddonViewModel
 import ru.gb.donspb.justpic.model.EPICServerResponse
@@ -46,12 +44,9 @@ class RecyclerFragment : Fragment() {
         val recycler = view.findViewById<RecyclerView>(R.id.recycler_earth)
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(context)
-        view.findViewById<FloatingActionButton>(R.id.rv_fragment_fab).setOnClickListener {
-            adapter.appendItem()
-        }
         ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(recycler)
 
-        viewModel.getData().observe(this@RecyclerFragment, Observer<EpicData> { renderData(it) })
+        viewModel.getData().observe(viewLifecycleOwner, { renderData(it) })
     }
 
     private fun renderData(data: EpicData) {

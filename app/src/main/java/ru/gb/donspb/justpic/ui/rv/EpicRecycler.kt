@@ -8,16 +8,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import ru.gb.donspb.justpic.R
 import ru.gb.donspb.justpic.model.EPICServerResponse
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener)
     : RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter {
@@ -79,8 +76,6 @@ class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener)
                 }
                 else shortDate = ""
 
-//                val parsedDate = LocalDateTime.parse(epicItem.first.date,
-//                    DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"))
                 val url = "https://epic.gsfc.nasa.gov/archive/natural/" +
                         shortDate.replace('-','/') + "/png/${epicItem.first.url}.png"
                 datefield.setOnClickListener {
@@ -117,7 +112,7 @@ class EpicRecycler(private var onItemViewClickListener: OnListItemClickListener)
 
     inner class HeaderViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
-        override fun bind(dataItem: Pair<EPICServerResponse, Boolean>) {
+        override fun bind(data: Pair<EPICServerResponse, Boolean>) {
             itemView.setOnClickListener {  }
         }
     }

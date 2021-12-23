@@ -15,4 +15,8 @@
     <string name="navigation_set_dark">Dark Theme</string>
 
     <string name="rv_header_epic">NASA\'s EPIC</string>
+
+    <string name="decrement_text">-</string>
+    <string name="increment_text">+</string>
+    <string name="results_count">Number of results: %d</string>
 </resources>

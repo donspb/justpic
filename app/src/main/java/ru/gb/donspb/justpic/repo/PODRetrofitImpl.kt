@@ -1,7 +1,6 @@
 package ru.gb.donspb.justpic.repo
 
 import com.google.gson.GsonBuilder
-import com.google.gson.internal.GsonBuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response

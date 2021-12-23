@@ -1,13 +1,11 @@
 package ru.gb.donspb.justpic
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatDelegate
 import ru.gb.donspb.justpic.ui.main.MainFragment
-import java.util.prefs.Preferences
+
 
 private const val THEME_TAG = "ISDARK"
 

@@ -1,11 +1,8 @@
 package ru.gb.donspb.justpic.ui.addon
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.lifecycle.Lifecycle
-import androidx.viewpager2.adapter.FragmentStateAdapter
 
 private const val EARTH_FRAGMENT = 0
 private const val MARS_FRAGMENT = 1
@@ -29,7 +26,7 @@ class ViewPageAdapter(private val fragmentManager: FragmentManager):
         }
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return when (position) {
             0 -> "Earth"
             1 -> "Mars"
@@ -37,5 +34,4 @@ class ViewPageAdapter(private val fragmentManager: FragmentManager):
             else -> "Earth"
         }
     }
-
 }

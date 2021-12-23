@@ -2,8 +2,6 @@ package ru.gb.donspb.justpic.ui.addon
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import ru.gb.donspb.justpic.R
 
